@@ -8,8 +8,11 @@ app.listen(PORT, () => console.log(`App running on http://localhost:${PORT}`));
 
 // GET endpoint
 app.get("/words", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   res.status(200).send({
-    adj: "Flott",
-    sub: "Server",
+    body: {
+      adj: "nice",
+      sub: "server",
+    },
   });
 });
