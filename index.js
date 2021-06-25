@@ -18,3 +18,27 @@ app.get("/words", (req, res) => {
     },
   });
 });
+
+app.post("/suggestion", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+
+  const { sub, adj } = req.body;
+
+  if (!sub && !adj) {
+    res.status(418).send({ message: "Need word suggestion" });
+  } else {
+    if (sub) {
+      db.addNounToDB(sub);
+    }
+    if (adj) {
+      db.addAdjToDB(adj);
+    }
+  }
+});
+
+app.options("/suggestion", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Headers", "*");
+
+  res.status(200).send();
+});
